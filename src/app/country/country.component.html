@@ -1,0 +1,26 @@
+
+<div 
+  *ngIf="(countries$ | async)?.isLoading; else showCountries">
+  <mat-spinner></mat-spinner>
+</div>
+<ng-template #showCountries>
+  <div
+    class="flex flex-wrap	justify-start gap-1 border-blue-300 border-solid border-4">
+    <ng-container
+      *ngFor="let country of (countries$ | async)?.countries">
+      <mat-card class="country-card p-3 flex flex-col flex-wrap justify-between">
+          <mat-card-header>
+              <mat-card-title>{{ country.name.official }}</mat-card-title>
+              <mat-card-subtitle>{{ country.continents }}</mat-card-subtitle>
+          </mat-card-header>
+          <img matCardImage class="min-w-full block	" src={{country.flags.svg}}>
+          <!-- <mat-card-content>
+              Text content
+          </mat-card-content> -->
+          <mat-card-footer class="self-end ">
+              {{ country.population | number }}
+          </mat-card-footer>
+      </mat-card>
+    </ng-container>
+  </div>
+</ng-template>
